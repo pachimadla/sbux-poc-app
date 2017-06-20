@@ -1,14 +1,3 @@
-/*
- *EventHub.java
- *
- *
- * Copyright (c) 2016 Southwest Airlines, Co.
- * 2702 Love Field Drive, Dallas, TX 75235, U.S.A.
- * All rights reserved.
- *
- * This software is the confidential and proprietary
- * information of Southwest Airlines, Co.
- */
 package com.lm.sbux.poc.eventhub;
 
 import java.io.IOException;
@@ -48,13 +37,8 @@ public class EventHub {
    public void receiveEvent() throws ServiceBusException, ExecutionException,
    InterruptedException, IOException {
       ConnectionStringBuilder eventHubConnectionString = new ConnectionStringBuilder(Properties.NAMESPACE, Properties.EVENTHUB_NAME, Properties.SAS_KEY_NAME, Properties.SAS_KEY);
-      //EventProcessorHost host = new EventProcessorHost("", "", "", "","","");
-      //System.out.println("Registering host named " + host.getHostName());
-      //EventProcessorOptions options = new EventProcessorOptions();
-      //options.setExceptionNotification(new ErrorNotificationHandler());
       try
       {
-         // host.registerEventProcessor(EventProcessor.class, options).get();
          EventHubClient ehClient = EventHubClient.createFromConnectionStringSync(eventHubConnectionString.toString());
 
          PartitionReceiver receiver = ehClient.createReceiverSync(
@@ -85,26 +69,5 @@ public class EventHub {
       }
       System.out.println("End of sample");
    }
-
-
-   /* public static void main(String[] args) {
-      EventHub eventHub=new EventHub();
-      try {
-         eventHub.sendEvent("SBUX Event Hub Test meaasage");
-         //Uncomment below to receiveEvent
-         //eventHub.receiveEvent();
-      } catch (ServiceBusException e) {
-         e.printStackTrace();
-      } catch (ExecutionException e) {
-
-         e.printStackTrace();
-      } catch (InterruptedException e) {
-
-         e.printStackTrace();
-      } catch (IOException e) {
-
-         e.printStackTrace();
-      }
-   }*/
 
 }
